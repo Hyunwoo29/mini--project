@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import './PostWrite.css'
+import '../styles/PostRegister.css'
 import { Button } from '@material-ui/core';
 
 const PostWirte = () => {

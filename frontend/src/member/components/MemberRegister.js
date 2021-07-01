@@ -1,31 +1,24 @@
 import React,{useState} from 'react'
-import './Signup.css'
-import { Button } from '@material-ui/core';
-import { userLogin } from 'api';
-import { userSignup } from 'api'
+import '../styles/MemberRegister.css'
+import { memberRegister } from 'api'
 import { useHistory } from 'react-router'
-const SignUp = () => {
+
+const MemberRegister = () => {
   const history = useHistory()
-  const [userInfo, setUserInfo] = useState({
+  const [memberInfo, setMemberInfo] = useState({
     username: '',
     password: '',
     name: '',
     email: ''
   })
 
-  const {username, password, name, email} = `userInfo`
+  const {username, password, name, email} = `memberInfo`
 
 
   const handleSubmit = e => {
     e.preventDefault()
-    let handleErrors = response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response;
-    }
-    alert(`전송 클릭: ${JSON.stringify({...userInfo})}`)
-    userSignup({...userInfo})
+    alert(`전송 클릭: ${JSON.stringify({...memberInfo})}`)
+    memberRegister({...memberInfo})
     .then(res => {
       alert(`회원가입 완료 : ${res.data.result} `)
       // history.push('login')
@@ -47,8 +40,8 @@ const SignUp = () => {
 
   const handleChange = e => {
     const { name, value } = e.target
-    setUserInfo({
-      ...userInfo,
+    setMemberInfo({
+      ...memberInfo,
       [name]: value
     })
 
@@ -88,4 +81,4 @@ const SignUp = () => {
 </>)
 }
 
-export default SignUp
+export default MemberRegister
