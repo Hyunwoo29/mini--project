@@ -17,10 +17,17 @@ const MemberLoginForm = () => {
     e.preventDefault()
     memberLogin({...loginRequest})
     .then(res => {
-      if(JSON.stringify(res.data[0]) === 'FAIL'){
-        alert(`로그인 실패 : ${JSON.stringify(res.data[0])} `)
+      if(res.data.result === 'PASSWORD-FAIL'){
+        alert(`비밀번호가 틀립니다.`)
+        document.getElementById("username").value = ""
+        document.getElementById("password").value = ""
+
+      }else if(res.data.result === 'USERNAME-FAIL'){
+        alert(`아이디가 틀립니다.`)
+        document.getElementById("username").value = ""
+        document.getElementById("password").value = ""
       }else{
-        alert(`로그인 성공 : ${JSON.stringify(res.data)} `)
+        alert(`로그인 성공 `)
         localStorage.setItem("loginedMember", JSON.stringify(res.data))
         history.push('/member-list')
 
@@ -56,10 +63,10 @@ const MemberLoginForm = () => {
 
         <div className="container">
           <label labelFor="username"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" onChange={handleChange} name="username" value={username} required/>
+          <input type="text" placeholder="Enter Username" onChange={handleChange} id="username" name="username" value={username} required/>
 
           <label labelFor="password"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" onChange={handleChange} name="password" value={password} required/>
+          <input type="password" placeholder="Enter Password" onChange={handleChange} id="password" name="password" value={password} required/>
               
           <button type="submit">Login</button>
           <label>
